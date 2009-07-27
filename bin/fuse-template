@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+
+use Fuse::Template;
+use Moose::Util;
+
+Moose::Util::apply_all_roles('Fuse::Template' => qw/Fuse::Template::App/);
+
+exit Fuse::Template->new_with_options->run;

@@ -1,0 +1,29 @@
+---
+abstract: 'Mount a directory with templates.'
+author:
+  - 'Jan Henning Thorsen'
+build_requires:
+  Test::More: 0
+distribution_type: module
+generated_by: 'Module::Install version 0.79'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Fuse-Template
+no_index:
+  directory:
+    - examples
+    - inc
+    - t
+requires:
+  DBIx::Class: 0.08
+  DBIx::Class::Schema::Loader: 0.04
+  Fcntl: 1
+  Fuse: 0.09
+  Moose: 0.8
+  MooseX::Types: 0.16
+  Template: 2
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.01

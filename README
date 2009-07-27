@@ -1,0 +1,150 @@
+.::lib::Fuse::Template(U3s)er Contributed Perl Documentat.i:o:nlib::Fuse::Template(3)
+
+
+
+NNAAMMEE
+       Fuse::Template - Mount a directory with templates.
+
+VVEERRSSIIOONN
+       0.01
+
+UUSSAAGGEE
+       "sudo" might be optional.
+
+   MMOOUUNNTT
+       Example SQLite:
+
+        $ sudo fuse-template
+          --root /path/to/templates \
+          --mountpoint /path/to/mountpoint \
+          --schema dbi:SQLite:path/to/db \
+          ;
+
+       Example MySQL:
+
+        $ sudo fuse-template
+          --root /path/to/templates \
+          --mountpoint /path/to/mountpoint \
+          --schema "dbi:mysql:database=MyDB;host=127.1;port=3006 user pass" \
+          ;
+
+       See DBI for possible "--schema" formats.
+
+   UUNNMMOOUUNNTT
+       This needs to be done manually for now. (Patches are welcome!)
+
+        sudo umount /path/to/mountpoint;
+
+DDEESSCCRRIIPPTTIIOONN
+       The idea with this project is to auto-maintain password files, and
+       other plain text files for different systems, with data from a
+       database.
+
+       Got issues with installation? See "INSTALL" for details and list of
+       prerequisite.
+
+       See "examples/" in this distribution for templates.
+
+       Example file system structure:
+
+        root/               -> mountpooit/
+        root/somefile       -> mountpoint/somefile
+        root/foo.tt         -> mountpoint/foo
+        root/bar/baz.txt.tt -> mountpoint/bar/baz.txt
+
+       "somefile" is accessible directly at "mountpoint". Template files (.tt)
+       are parsed and the output is accessible on mountpoint side. This is
+       done using Template::Toolkit.
+
+       Files in mountpoint are read-only for now.
+
+TTEEMMPPLLAATTEESS
+       Here is an example template:
+
+        root = [% self.root %]
+        [% rs = schema.resultset('MyTable') %]
+        [% rs = MyTable; # same as schema.resultset(...) %]
+        [% WHILE (row = rs.next) # get next row in resultset %]
+        col_name = [% row.col_name # retrieve column data %]
+        [% END %]
+
+       See DBIx::Class for information on how to use the schema object.
+
+       Available variables:
+
+        root
+        mountpoint
+        mountopts
+        self # this object
+        schema # DBIx::Class object
+        + all resultsetset/tables
+
+       Resultset use this naming convention to convert tablenames:
+
+           Table Name  | Moniker Name
+           ---------------------------
+           luser       | Luser
+           luser_group | LuserGroup
+           luser-opts  | LuserOpts
+
+       See "moniker_map" in DBIx::Class::Schema::Loader for details
+
+AATTTTRRIIBBUUTTEESS
+   rroooott
+        $object = $self->root;
+
+       $object must be stringified to path where templates/files are located.
+       $object must follow the same API as Fuse::Template::Root.
+
+       Can be set in constructor as:
+
+        root => \%constructor_args
+        root => $path_to_root
+
+       %constructor_args can override defaults, while $path_to_root will only
+       override "path" attribute in root-object.
+
+   mmoouunnttppooiinntt
+        $path = $self->mountpoint;
+
+       Path to where the filesystem should be mounted.
+
+   mmoouunnttooppttss
+        $str = $self->mountopts;
+
+       Example mount option: "allow_other"
+
+   sscchheemmaa
+        $dbic_object = $self->schema;
+
+       Can be set in constructor as:
+
+        schema => \%args
+        schema => "$dsn $username $password"
+
+       See Fuse::Template::Schema for details.
+
+   ddeebbuugg
+        $bool = $self->debug;
+
+       Enable/disable debug output from Fuse. Default is disabled.
+
+MMEETTHHOODDSS
+   ffiinndd__ffiillee
+        $real_path = $self->find_file($virtual_path);
+
+       Returns path to the file in root path.
+
+   lloogg
+        $bool = $self->log($level => $format => @args);
+
+AAUUTTHHOORR
+       Jan Henning Thorsen
+
+LLIICCEENNSSEE
+       This library is free software, you can redistribute it and/or modify it
+       under the same terms as Perl itself.
+
+
+
+perl v5.10.0                      2009-07-27         .::lib::Fuse::Template(3)
