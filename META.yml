@@ -3,9 +3,14 @@ abstract: 'Mount a directory with templates.'
 author:
   - 'Jan Henning Thorsen'
 build_requires:
-  Test::More: 0
+  DBD::SQLite: 1
+  ExtUtils::MakeMaker: 6.42
+  File::Find: 1
+  Test::More: 0.8
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.79'
+generated_by: 'Module::Install version 0.91'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,11 +24,11 @@ no_index:
 requires:
   DBIx::Class: 0.08
   DBIx::Class::Schema::Loader: 0.04
-  Fcntl: 1
   Fuse: 0.09
   Moose: 0.8
+  MooseX::Getopt: 0.2
   MooseX::Types: 0.16
   Template: 2
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 0.01_002
