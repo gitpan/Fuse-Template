@@ -6,7 +6,7 @@ Fuse::Template - Mount a directory with templates.
 
 =head1 VERSION
 
-0.01_002
+0.02
 
 =head1 USAGE
 
@@ -40,11 +40,13 @@ This needs to be done manually for now. (Patches are welcome!)
 
 =head1 DESCRIPTION
 
+IMPORTANT! Version 0.02 of L<Fuse::Template> breaks backward compat by
+using the new "v7" naming convention from L<DBIx::Class::Schema::Loader>.
+Set the C<SCHEMA_LOADER_BACKCOMPAT> environment variable, if you want the
+old behavior.
+
 The idea with this project is to auto-maintain password files, and other
 plain text files for different systems, with data from a database.
-
-Got issues with installation? See C<INSTALL> for details and list
-of prerequisite.
 
 See C<examples/> in this distribution for templates.
 
@@ -94,6 +96,15 @@ Resultset use this naming convention to convert tablenames:
 
 See L<DBIx::Class::Schema::Loader/moniker_map> for details
 
+=head1 INSTALLATION
+
+On ubuntu:
+
+    $ sudo aptitude install libfuse-perl
+    $ wget -q http://xrl.us/cpanm | perl - --sudo Fuse::Template
+
+See L<App::cpanminus> if you are curious about the "wget" command.
+
 =cut
 
 use Moose;
@@ -102,7 +113,7 @@ use Fuse::Template::TT;
 
 with qw/Fuse::Template::Sys/;
 
-our $VERSION = "0.01_002";
+our $VERSION = '0.02';
 
 =head1 ATTRIBUTES
 
@@ -207,6 +218,7 @@ sub _build__template {
             mountpoint => $self->mountpoint,
             mountopts => $self->mountopts,
             self => $self,
+            ft => $self,
         },
     );
 }

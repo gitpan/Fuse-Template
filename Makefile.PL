@@ -14,6 +14,8 @@ requires 'Template' => 2.0;
 test_requires 'DBD::SQLite' => 1.0;
 test_requires 'File::Find' => 1.0;
 test_requires 'Test::More' => 0.8;
+test_requires 'Test::Pod' => 1.2;
+test_requires 'Test::Pod::Coverage' => 1.0;
 
 auto_install;
 WriteAll;
