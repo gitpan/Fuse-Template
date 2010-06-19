@@ -5,8 +5,7 @@ author:
 build_requires:
   DBD::SQLite: 1
   ExtUtils::MakeMaker: 6.42
-  File::Find: 1
-  Test::More: 0.8
+  Test::More: 0.94
   Test::Pod: 1.2
   Test::Pod::Coverage: 1
 configure_requires:
@@ -24,13 +23,16 @@ no_index:
     - inc
     - t
 requires:
-  DBIx::Class: 0.08
-  DBIx::Class::Schema::Loader: 0.04
+  Class::MOP::Object: 1.03
+  DBIx::Class::Schema::Loader: 0.07
   Fuse: 0.09
-  Moose: 0.8
-  MooseX::Getopt: 0.2
-  MooseX::Types: 0.16
+  Moose: 1.07
+  MooseX::Getopt: 0.26
+  MooseX::Types: 0.21
   Template: 2
 resources:
+  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Fuse-Template
+  homepage: http://search.cpan.org/dist/Fuse-Template
   license: http://dev.perl.org/licenses/
-version: 0.02
+  repository: git://github.com//home/repositories/fuse-template.git
+version: 0.0201
